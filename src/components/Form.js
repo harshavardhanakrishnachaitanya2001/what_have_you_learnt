@@ -1,47 +1,60 @@
 import React from 'react'
-import {useState} from 'react'
+import { useState } from 'react'
 const Form = () => {
-    const [details,setDetails] = useState({
-        personName:'',
-        concepts:[],
-    });
-    const handleCheckBox = (e) => {
-      let updatedDetails = {...details};
-      if(e.target.checked){
-      updatedDetails.concepts.push("Hi")
-      }
-      setDetails(updatedDetails);
-    }
-    
+  const [name,setName] = useState('');
+  const [age,setAge] = useState(0)
+  const [details,setDetails] = useState({})
+  const [concepts,setConcepts] = useState([
+    {
+      id:1,
+      name:'HTML',
+      learned:false
+    },
+    {
+      id:2,
+      name:'CSS',
+      learned:false
+    },
+    {
+      id:3,
+      name:'JavaScript',
+      learned:false
+    },
+    {
+      id:4,
+      name:'Reactjs',
+      learned:false
+    },
+    {
+      id:5,
+      name:'Tailwindcss',
+      learned:false
+    },
+    {
+      id:6,
+      name:'Mongodb',
+      learned:false
+    },
+    {
+      id:7,
+      name:'Expressjs',
+      learned:false
+    },
+  ])
   return (
-    <div>
-    
-      <form>
-        <div>
-            <label>Name:</label>
-            <input  type='text'/>
-        </div>
-        <div>
-            <label>Age</label>
-            <input type='text'/>
-        </div>
-        <div>
-            <label>Choose the languages you know</label>
-            <input type='checkbox'/>HTML
-            <input type='checkbox'/>JavaScipt
-            <input type='checkbox'/>Reactjs
-            <input type='checkbox'/>CSS
-            <input type='checkbox'/>Tailwindcss
-            <input type='checkbox'/>Nextjs
-            <input type='checkbox'/>Node.js
-            <input type='checkbox' onChange={handleCheckBox} name="expressjs"/>ExpressJS
-        </div>
-      </form>
+    <form>
+      {/* Name field */}
       <div>
-        <h1>So you have to learn: </h1>
-        <h2>{details.concepts}</h2>
+        <label>Name</label>
+        <input type='text' value = {name}/>
       </div>
-    </div>
+
+      {/* Age field */}
+      <div>
+        <label>Age</label>
+        <input type='text' />
+      </div>
+    </form>
   )
 }
 
