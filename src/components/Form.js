@@ -1,18 +1,14 @@
-import React from "react";
 import { useState } from "react";
 import {concepts} from '../Concepts'
 
  const Form = () => {
-  const [name, setName] = useState("");
   const [details, setDetails] = useState({
     learnedConcepts: [], 
     yetToLearn: []
   });
+  const [newConcept,setNewConcept] = useState({});
 
-  const handleName = (e) => {
-    e.preventDefault();
-    setName(e.target.value);
-  };
+  
   const handleCheckbox = (e) => {
     const checkedCheckbox = e.target.name;
     const isChecked = e.target.checked;
@@ -26,34 +22,37 @@ import {concepts} from '../Concepts'
     
   }
 
-  // Storing name details object
-  const saveDetails = (e) => {
+  // Add new concept: click handler
+  let id=7;
+  const addNewConcept = (e) => {
     e.preventDefault();
-    setDetails(prevDetails => ({ ...prevDetails, personName: name }));
+    let newConceptList = [...concepts];
+    newConceptList.push({
+      id:++id,
+      name:newConcept,
+      learned:false,
+    });
+    console.log(concepts)
   };
+
+  //Storing name
+  const handleConceptChange = (e) => {
+    setNewConcept(e.target.value)
+  }
+
+
   
   return (
-    <>
+    <div className="text-xl ml-2 h-full">
       <form>
-        {/* Name field */}
-        <div>
-          <label>Name</label>
-          <input
-            type="text"
-            value={name}
-            onChange={handleName}
-            name="personName"
-            required
-          />
-        </div>
-
         {/* List of concepts */}
-        <ul>
+        <ul className="space-y-5 flex flex-col justify-center">
           {concepts.map((concept) => (
             <li key={concept.id}>
               <input
                 checked={concepts.learned}
                 type="checkbox"
+                className="border-box m-1 h-5 w-5"
                 onChange={handleCheckbox}
                 name={concept.name}
               />
@@ -61,25 +60,35 @@ import {concepts} from '../Concepts'
             </li>
           ))}
         </ul>
-
+        {/* Input to add new concept object */}
+        <input type="text" value={newConcept} onChange = {handleConceptChange} className="border border-gray-500 rounded-sm p-2 mr-2"/>
+        {/* Button for adding that to the concepts array */}
+        <button onClick={addNewConcept} className="border rounded-lg p-2 my-2">Add concept</button>
       </form>
+
         {/* Result display area */}
-        <button onClick={saveDetails}>Save</button>
-        <span>{details.personName}, You know: </span>
-        <ol>
-          {
-            details.learnedConcepts.map(concept => (
-              <li key={concept.id}>{concept.name}</li>
-            ))
-          }
-        </ol>
-        <h1>and you need to learn</h1>
-        {
-          details.yetToLearn.map(concept => (
-            <li key={concept.id}>{concept.name}</li>
-          ))
-        }
-    </>
+        
+          <>  
+            <p className="my-2 font-bold">It's grate that you know: </p>
+            <ol className="space-y-4">
+              {
+                details.learnedConcepts.map(concept => (
+                  <li key={concept.id} className="space-y-4">{concept.name}</li>
+                ))
+              }
+            </ol>
+            <p className="my-2 font-bold">But if you know about the following too, that would be fantastic.</p>
+            <ol className="space-y-4">
+              {
+                details.yetToLearn.map(concept => (
+                  <li key={concept.id} className="">{concept.name}</li>
+                ))
+              }
+            </ol>
+            <p className="my-2 font-bold">Hope you have a great day!</p>
+          </>
+       
+    </div>
   )
 }
 

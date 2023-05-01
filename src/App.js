@@ -4,7 +4,7 @@ import Form from './components/Form'
 
 const App = () => {
   return (
-    <div>
+    <div className='h-screen'>
       <Header />
       <Form />
     </div>
